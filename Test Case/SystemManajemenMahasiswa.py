@@ -1,6 +1,6 @@
 import pandas as pd
 
-def input_nilai():
+def input_nilai(data):
     nama = input("Masukkan Nama: ")
     nim = input("Masukkan NIM: ")
     while any(d['NIM'] == nim for d in data):
