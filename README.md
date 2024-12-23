@@ -1,73 +1,109 @@
 # Program Unit Test
-# Sistem Manajemen Pesanan Restoran
+# Database Nilai Mahasiswa
 
-Program ini adalah aplikasi berbasis terminal untuk mengelola pesanan di restoran. Aplikasi ini memungkinkan pengguna untuk membuat, melihat, mengubah, menghapus, dan mencari pesanan. Data pesanan disimpan dalam file teks (`pesanan.txt`) dan dapat diekspor ke file dokumen Word (`pesanan.docx`).
+## Deskripsi Program
+Program ini dirancang untuk mengelola **database nilai mahasiswa** menggunakan Python dan library **pandas**. Data mahasiswa seperti nama, NIM, semester, mata kuliah, dan nilai dapat ditambahkan, ditampilkan, diedit, atau dihapus. Selain itu, data dapat disimpan ke dalam file Excel (`data_mahasiswa.xlsx`) untuk keperluan penyimpanan.
 
-## Fitur Utama
-1. **Buat Pesanan**: Menambahkan pesanan baru, termasuk makanan, minuman, dan gambar terkait.
-2. **Tampilkan Semua Pesanan**: Melihat daftar semua pesanan yang sudah dibuat.
-3. **Ubah Status Pesanan**: Mengubah status pesanan menjadi `diproses`, `selesai`, atau `batal`.
-4. **Hapus Pesanan**: Menghapus pesanan dengan status `batal`.
-5. **Cari Pesanan**: Mencari pesanan berdasarkan nama pelanggan.
-6. **Ekspor Pesanan ke Word**: Semua pesanan secara otomatis disimpan ke file Word (`pesanan.docx`).
+
+
+## Fitur Program
+1. **Input Nilai Mahasiswa**  
+   Tambahkan data mahasiswa baru ke dalam sistem, termasuk validasi untuk menghindari duplikasi NIM.
+
+2. **Tampilkan Data**  
+   Menampilkan seluruh data mahasiswa yang telah dimasukkan.
+
+3. **Simpan Data**  
+   Menyimpan data mahasiswa ke dalam file Excel (`data_mahasiswa.xlsx`).
+
+4. **Hapus atau Edit Data**  
+   Menghapus atau mengedit data mahasiswa berdasarkan NIM.
+
+5. **Keluar dari Program**  
+   Mengakhiri eksekusi program dengan aman.
+
+---
 
 ## Prasyarat
-- Python 3.x
-- Modul Python: `python-docx`
-  - Instalasi: `pip install python-docx`
+- Python 3.x.x
+- Library **pandas**
+- Library **openpyxl** (untuk menyimpan file Excel)
 
-## Cara Menjalankan Program
-1. **Kloning atau Unduh Repository**: 
-   Pastikan Anda memiliki file `pesanan.txt` (jika tidak, program akan membuatnya secara otomatis).
-2. **Jalankan Program**:
+---
+
+## Instalasi
+1. Pastikan Python 3.x telah terinstal di komputer Anda.
+2. Install library **pandas** dan **openpyxl** dengan perintah berikut:
    ```bash
-   python nama_file_program.py
+   pip install pandas openpyxl
    ```
-3. **Ikuti Menu di Terminal**:
-   Pilih opsi yang tersedia dari menu utama.
 
-## Struktur Data Pesanan
-Setiap pesanan memiliki atribut:
-- `name`: Nama pelanggan.
-- `items`: Daftar makanan/minuman yang dipesan (dengan nama dan path gambar).
-- `status`: Status pesanan (`diproses`, `selesai`, atau `batal`).
+---
 
-Contoh:
-```json
-{
-    "name": "John Doe",
-    "items": [
-        {"name": "Ayam Krispi", "image": "path/to/image1.jpg"},
-        {"name": "Es Teh", "image": "path/to/image2.jpg"}
-    ],
-    "status": "diproses"
-}
-```
+## Cara Menggunakan
+1. Jalankan program dengan perintah:
+   ```bash
+   python SystemManajemenMahasiswa.py
+   ```
+2. Ikuti menu yang tersedia:
+   - Pilih `1` untuk menambahkan data mahasiswa.
+   - Pilih `2` untuk menampilkan data mahasiswa.
+   - Pilih `3` untuk menyimpan data ke file Excel.
+   - Pilih `4` untuk mengedit atau menghapus data berdasarkan NIM.
+   - Pilih `5` untuk keluar dari program.
 
-## Menu Utama
-1. **Buat Pesanan**: Masukkan nama pelanggan, pilih makanan/minuman, dan tambahkan path gambar.
-2. **Tampilkan Semua Pesanan**: Menampilkan semua pesanan yang ada di file.
-3. **Ubah Status Pesanan**: Pilih nomor pesanan dan ubah statusnya.
-4. **Hapus Pesanan**: Hanya pesanan dengan status `batal` yang dapat dihapus.
-5. **Cari Pesanan**: Masukkan nama pelanggan untuk mencari pesanan.
-6. **Keluar**: Menutup program.
+---
 
-## Ekspor ke File Word
-Setiap perubahan pesanan akan otomatis diperbarui di file `pesanan.docx`, yang berisi:
-- Nama pelanggan.
-- Daftar makanan/minuman.
-- Path gambar (jika ditemukan).
-- Status pesanan.
+## Format Input
+- **Nama**: String (contoh: "John Doe").
+- **NIM**: String (contoh: "12345678").
+- **Semester**: Integer (contoh: `2`).
+- **Mata Kuliah**: String (contoh: "Matematika Dasar").
+- **Nilai**: Float (contoh: `85.5`).
+
+---
+
+## File Output
+Data yang disimpan akan ditulis ke file **data_mahasiswa.xlsx** dengan kolom:
+- Nama
+- NIM
+- Semester
+- Mata Kuliah
+- Nilai
+
+---
+
+## Contoh Penggunaan
+1. Tambahkan data mahasiswa:
+   ```
+   Masukkan Nama: John Doe
+   Masukkan NIM: 12345678
+   Masukkan Semester: 1
+   Masukkan Mata Kuliah: Matematika Dasar
+   Masukkan Nilai: 90.5
+   ```
+2. Tampilkan data mahasiswa:
+   ```
+   NIM: 12345678, Nama: John Doe, Semester: 1, Mata Kuliah: Matematika Dasar, Nilai: 90.5
+   ```
+3. Simpan data ke file Excel:
+   ```
+   Data telah disimpan ke dalam file data_mahasiswa.xlsx
+   ```
+
+---
 
 ## Catatan
-- Gambar harus ada di path yang valid untuk ditampilkan di file Word.
-- File `pesanan.txt` digunakan untuk menyimpan data pesanan dalam format teks sederhana.
-- Pastikan memiliki izin baca/tulis di direktori tempat file berada.
+- Jika file `data_mahasiswa.xlsx` tidak ditemukan saat program dijalankan, program akan membuat data kosong secara otomatis.
+- Pastikan NIM tidak duplikat untuk menghindari konflik data.
+- Masukkan nilai yang valid (misalnya, nilai berupa angka).
 
-## Pengembang
-- Dibuat oleh: Moh. Khairul Umam
-- Versi: 1.0
-- Bahasa: Python
+---
 
 ## Lisensi
-Proyek ini dilisensikan di bawah khairulmamku92@gmail.com . Anda bebas menggunakan dan memodifikasi program ini.
+Program ini dilisensikan di bawah lisensi **MIT License**. Silakan gunakan dan modifikasi sesuai kebutuhan.
+
+--- 
+
+**Dibuat oleh:** Moh. Khairul Umam  
+**Kontak:** khairulumamku92@gmail.com
