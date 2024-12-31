@@ -6,7 +6,7 @@ from SystemManajemenMahasiswa import input_nilai, cek_nilai, simpan_nilai, hapus
 
 class TestSystemManajemenMahasiswa(unittest.TestCase):
     @patch('builtins.input', side_effect=['Jane Doe', '67890', '2', 'Science', '85'])
-    def test_input_nilai_new(self, mock_input):
+    def test_input_nilai_new(self, mock_input=None):
         data = []
         result = input_nilai(data)
         expected = {'Nama': 'Jane Doe', 'NIM': '67890', 'Semester': 2, 'Mata Kuliah': 'Science', 'Nilai': 85.0}
@@ -19,6 +19,24 @@ class TestSystemManajemenMahasiswa(unittest.TestCase):
         expected = {'Nama': 'John Doe', 'NIM': '12345', 'Semester': 1, 'Mata Kuliah': 'Math', 'Nilai': 90.0}
         self.assertEqual(result, expected)
 
+    @patch('builtins.input', side_effect=['', '12345', '1', 'Math', '90'])
+    def test_input_nilai_empty_name(self, mock_input):
+        data = []
+        with self.assertRaises(ValueError):
+            input_nilai(data)
+
+    @patch('builtins.input', side_effect=['John Doe', '', '1', 'Math', '90'])
+    def test_input_nilai_empty_nim(self, mock_input):
+        data = []
+        with self.assertRaises(ValueError):
+            input_nilai(data)
+
+    @patch('builtins.input', side_effect=['John Doe', '12345', '1', 'Math', ''])
+    def test_input_nilai_empty_nilai(self, mock_input):
+        data = []
+        with self.assertRaises(ValueError):
+            input_nilai(data)
+
     @patch('builtins.print')
     def test_cek_nilai_new(self, mock_print):
         data = [{'Nama': 'Jane Doe', 'NIM': '67890', 'Semester': 2, 'Mata Kuliah': 'Science', 'Nilai': 85.0}]
@@ -30,6 +48,12 @@ class TestSystemManajemenMahasiswa(unittest.TestCase):
         data = [{'Nama': 'John Doe', 'NIM': '12345', 'Semester': 1, 'Mata Kuliah': 'Math', 'Nilai': 90.0}]
         cek_nilai(data)
         mock_print.assert_called_with("NIM: 12345, Nama: John Doe, Semester: 1, Mata Kuliah: Math, Nilai: 90.0")
+
+    @patch('builtins.print')
+    def test_cek_nilai_empty_data(self, mock_print):
+        data = []
+        cek_nilai(data)
+        mock_print.assert_called_once_with("Data mahasiswa tidak ditemukan.")
 
     @patch('pandas.DataFrame.to_excel')
     @patch('builtins.print')
@@ -80,6 +104,14 @@ class TestSystemManajemenMahasiswa(unittest.TestCase):
         hapus_edit_nilai(data)
         self.assertEqual(data, [])
         mock_print.assert_any_call("Data berhasil dihapus.")
+
+    @patch('builtins.input', side_effect=['99999', '1'])
+    @patch('builtins.print')
+    def test_hapus_edit_nilai_nonexistent(self, mock_print, mock_input):
+        data = [{'Nama': 'John Doe', 'NIM': '12345', 'Semester': 1, 'Mata Kuliah': 'Math', 'Nilai': 90.0}]
+        hapus_edit_nilai(data)
+        self.assertEqual(len(data), 1)
+        mock_print.assert_any_call("Data tidak ditemukan.")
 
 if __name__ == '__main__':
     unittest.main()
